@@ -1,24 +1,7 @@
-# journal_app
+# Journal_App
 
-## Project setup
-```
-npm install
-```
+This is the GitHub repository for this _Journal App_ made with [VUE](https://v3.vuejs.org/), [VUE Router](https://next.router.vuejs.org/), [VUEX](https://next.vuex.vuejs.org/).
 
-### Compiles and hot-reloads for development
-```
-npm run serve
-```
+It's styled with [Bootstrap](https://getbootstrap.com/) and [SASS](https://sass-lang.com/).
 
-### Compiles and minifies for production
-```
-npm run build
-```
-
-### Lints and fixes files
-```
-npm run lint
-```
-
-### Customize configuration
-See [Configuration Reference](https://cli.vuejs.org/config/).
+### Right now it's on DEVELOPMENT and ISN'T DEPLOYED
