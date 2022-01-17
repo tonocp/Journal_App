@@ -91,4 +91,40 @@ describe("VUEX - Pruebas en el Journal Module", () => {
 
     expect(store.state.journal.entries.length).toBe(2);
   });
+
+  test("Actions: updateEntry", async () => {
+    const store = createVuexStore(journalState);
+
+    const updatedEntry = {
+      id: "-Mr2XS8HZ41T8-mAxch7",
+      date: 1639663113422,
+      text: "Hola mundo desde pruebas",
+      otroCampo: true,
+      otroMas: { a: 1 },
+    };
+
+    await store.dispatch("journal/updateEntry", updatedEntry);
+
+    expect(store.state.journal.entries.length).toBe(2);
+    expect(store.state.journal.entries.find((e) => e.id === updatedEntry.id)).toEqual({
+      id: "-Mr2XS8HZ41T8-mAxch7",
+      date: 1639663113422,
+      text: "Hola mundo desde pruebas",
+    });
+  });
+
+  test("Actions: createEntry & deleteEntry", async () => {
+    const store = createVuexStore(journalState);
+    const newEntry = {
+      date: 1639663113422,
+      text: "Nueva entrada desde Pruebas",
+    };
+
+    const id = await store.dispatch("journal/createEntry", newEntry);
+    expect(typeof id).toBe("string");
+    expect(store.state.journal.entries.find((e) => e.id === id)).toBeTruthy();
+
+    await store.dispatch("journal/deleteEntry", id);
+    expect(store.state.journal.entries.find((e) => e.id === id)).toBeFalsy();
+  });
 });
