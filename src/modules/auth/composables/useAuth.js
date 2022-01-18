@@ -1,3 +1,5 @@
+import { computed } from "vue";
+
 const { useStore } = require("vuex");
 
 const useAuth = () => {
@@ -18,10 +20,19 @@ const useAuth = () => {
     return resp;
   };
 
+  const logout = () => {
+    store.commit("auth/logout");
+    store.commit("journal/clearEntries");
+  };
+
   return {
     createUser,
     loginUser,
     checkAuthStatus,
+    logout,
+
+    authStatus: computed(() => store.getters["auth/currentState"]),
+    username: computed(() => store.getters["auth/username"]),
   };
 };
 
