@@ -24,5 +24,5 @@ export const logout = (state) => {
   state.status = "not-authenticated";
 
   localStorage.removeItem("idToken");
-  localStorage.removeItem("resfreshToken");
+  localStorage.removeItem("refreshToken");
 };

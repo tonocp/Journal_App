@@ -2,6 +2,8 @@ import { createStore } from "vuex";
 import journal from "@/modules/daybook/store/journal";
 import { journalState } from "../../../../mock-data/test-journal-state";
 
+import authApi from "@/api/authApi";
+
 const createVuexStore = (initialState) =>
   createStore({
     modules: {
@@ -15,7 +17,17 @@ const createVuexStore = (initialState) =>
   });
 
 describe("VUEX - Pruebas en el Journal Module", () => {
-  // BÁSICAS *********************************************
+  beforeAll(async () => {
+    const { data } = await authApi.post(":signInWithPassword", {
+      email: "test1@test.com",
+      password: "123456",
+      returnSecureToken: true,
+    });
+
+    localStorage.setItem("idToken", data.idToken);
+  });
+
+  // BÁSICAS =======================================================================
 
   test("Debe tener este estado inicial", () => {
     const store = createVuexStore(journalState);
@@ -25,7 +37,7 @@ describe("VUEX - Pruebas en el Journal Module", () => {
     expect(entries).toEqual(journalState.entries);
   });
 
-  // MUTATIONS *********************************************
+  // MUTATIONS =======================================================================
 
   test("Mutation: setEntries", () => {
     const store = createVuexStore({ isLoading: true, entries: [] });
@@ -68,7 +80,7 @@ describe("VUEX - Pruebas en el Journal Module", () => {
     expect(store.state.journal.entries.find((e) => e.id === "ABC-123")).toBeFalsy();
   });
 
-  // GETTERS *********************************************
+  // GETTERS =======================================================================
 
   test("Getters: getEntriesByTerm getEntryById", () => {
     const store = createVuexStore(journalState);
@@ -82,7 +94,7 @@ describe("VUEX - Pruebas en el Journal Module", () => {
     expect(store.getters["journal/getEntryById"](entry1.id)).toEqual(entry1);
   });
 
-  // ACTIONS *********************************************
+  // ACTIONS =======================================================================
 
   test("Actions: loadEntries", async () => {
     const store = createVuexStore({ isLoading: true, entries: [] });
