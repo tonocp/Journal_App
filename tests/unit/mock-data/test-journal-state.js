@@ -9,7 +9,7 @@ export const journalState = {
     {
       id: "-Mtc1XLEhm5SJWiTNHCM",
       date: 1642422993873,
-      text: "Hola mundo desde mock data2",
+      text: "Holi mundo desde mock data2",
     },
   ],
 };
